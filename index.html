@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     
@@ -34,26 +34,28 @@
         <div id="panel5" class="panel" style="background-color: coral;"></div>
     </div>
 
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 btn_get_val">Post</button>
-    <span class="post_msg"></span>
+    <div class="py-10 px-10 mx-0 min-w-full flex flex-col items-center">
+        <button id="btn" class="btn text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2 px-4 mt-3 rounded">Post</button>
+        <span id="msg" class="msg"></span>
+    </div>
 
-    <script type="text/javascript">
-        $(document).ready(function($)
-        {
-            $('.pickr1').color({ type: "component" });
-
-            $(document).on('click', '.btn_get_val', function(event)
-            {
-                event.preventDefault();
-                var v1 = $(document).find('.pickr1').val();
-                $(document).find('.post_msg').html(v1);
+    <script>
+        $(document).ready(function($){
+        
+        $(document).on('click', '.btn', function(event){
+            event.preventDefault();
+            var str = "1: " + colors[0] + " 2: "+colors[1]+" 3: "+colors[2]+" 4: "+colors[3]+" 5: "+colors[4]
+            $(document).find('.msg').html(str);
             });
         });
     </script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-        let panel1 = document.getElementById('panel1')    
+        var colors = ["#FFFFFF", "000000", "#FFFFFF", "000000", "#FFFFFF", "000000"];
+        
+        var panel1 = document.getElementById('panel1')    
         const pickr1 = Pickr.create({
             el: '.color-picker1',
             theme: 'classic', 
@@ -90,17 +92,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr1.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[0] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel1.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel1.style.backgroundColor = color.toRGBA()
         });
         
         //
@@ -142,17 +142,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr2.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[1] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel2.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel2.style.backgroundColor = color.toRGBA()
         });
         
         //
@@ -194,17 +192,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr3.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[2] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel3.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel3.style.backgroundColor = color.toRGBA()
         });      
 
         //
@@ -246,17 +242,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr4.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[3] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel4.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel4.style.backgroundColor = color.toRGBA()
         });
                 
         //
@@ -298,18 +292,17 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr5.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[4] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel5.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel5.style.backgroundColor = color.toRGBA()
         });
+
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
