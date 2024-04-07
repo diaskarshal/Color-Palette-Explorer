@@ -1,0 +1,12 @@
+.panel{
+    height: 40vh;
+    margin-top: 20px;
+}
+
+
+
+.pickr{
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
