@@ -1,3 +1,18 @@
+
+<?php
+$conn = mysqli_connect("localhost", "root", "", "db");
+
+if(isset($_POST["submit"])){
+  $name = $_POST["name"];
+  $comment = $_POST["comment"];
+  $date = date('F d, h:i');
+  $palette = $_POST["colors"];
+
+  $query = "INSERT INTO tb_data VALUES('', '$name', '$comment', '$palette', '$date')";
+  mysqli_query($conn, $query);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +22,7 @@
     <link rel="stylesheet" href="style.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     
@@ -16,7 +31,7 @@
         
             <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Color Palette Explorer</h2>
         
-            <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">This is a nfactorial project aimed to assist in exploring color palette. (<a href="https://www.github.com" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Github</a>) 
+            <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">This is a project aimed to assist in exploring color palette. (<a href="https://www.github.com" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Github</a>) 
                 <br>Click these buttons below to choose the background color.</p>
         </div>
     </div>
@@ -34,26 +49,26 @@
         <div id="panel5" class="panel" style="background-color: coral;"></div>
     </div>
 
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 btn_get_val">Post</button>
-    <span class="post_msg"></span>
+    <form action = ""  method = "post" class="py-6 max-w-sm mx-auto">
+        <input type="text" name="name" placeholder="Your name">
+        <textarea name="comment" placeholder="Your comment"></textarea>
+        <button id="btn" name="submit" type="submit" class="submit text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2 px-4 mt-3 rounded">Post</button>
+        <input type="hidden" id="colors" name="colors">
+    </form>
 
-    <script type="text/javascript">
-        $(document).ready(function($)
-        {
-            $('.pickr1').color({ type: "component" });
-
-            $(document).on('click', '.btn_get_val', function(event)
-            {
-                event.preventDefault();
-                var v1 = $(document).find('.pickr1').val();
-                $(document).find('.post_msg').html(v1);
-            });
-        });
-    </script>
+    <?php
+    $datas = mysqli_query($conn, "SELECT * FROM tb_data"); // only select comment and not select reply
+    foreach($datas as $data) {
+        require 'comment.php';
+    }
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-        let panel1 = document.getElementById('panel1')    
+        var colors = ["#FFFFFF", "000000", "#FFFFFF", "000000", "#FFFFFF", "000000"];
+        document.getElementById('colors').value = colors; 
+
+        var panel1 = document.getElementById('panel1')    
         const pickr1 = Pickr.create({
             el: '.color-picker1',
             theme: 'classic', 
@@ -90,17 +105,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr1.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[0] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel1.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel1.style.backgroundColor = color.toRGBA()
         });
         
         //
@@ -142,17 +155,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr2.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[1] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel2.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel2.style.backgroundColor = color.toRGBA()
         });
         
         //
@@ -194,17 +205,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr3.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[2] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel3.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel3.style.backgroundColor = color.toRGBA()
         });      
 
         //
@@ -246,17 +255,15 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr4.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[3] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel4.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel4.style.backgroundColor = color.toRGBA()
         });
                 
         //
@@ -298,18 +305,17 @@
                     hsva: true,
                     cmyk: true,
                     input: true,
-                    clear: false,
-                    save: true,
-                    cancel: true
+                    save: true
                 }
             }
         });
         pickr5.on('init', instance => {
         }).on('save', (color, instance) => {
-            //console.log('Event: "save"', color, instance);
+            colors[4] = color.toHEXA()
         }).on('change', (color, source, instance) => {
-            this.panel5.style.backgroundColor = color.toRGBA()//`rgba(${color_rgba[0]}, ${color_rgba[1]}, ${color_rgba[2]}, ${color_rgba[3]})`
+            this.panel5.style.backgroundColor = color.toRGBA()
         });
+
     </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
