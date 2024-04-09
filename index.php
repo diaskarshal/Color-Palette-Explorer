@@ -1,15 +1,18 @@
-
 <?php
-$conn = mysqli_connect("localhost", "root", "", "db");
+$conn = mysqli_connect("localhost", "root", "", "data");
 
-if(isset($_POST["submit"])){
-  $name = $_POST["name"];
-  $comment = $_POST["comment"];
-  $date = date('F d, h:i');
-  $palette = $_POST["colors"];
-
-  $query = "INSERT INTO tb_data VALUES('', '$name', '$comment', '$palette', '$date')";
-  mysqli_query($conn, $query);
+if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
+    $name = $_POST["name"];
+    $comment = $_POST["comment"];
+    $date = date('F d, h:i');
+    // $c1 = serialize($_POST["colors"])[9] . serialize($_POST["colors"])[10] . serialize($_POST["colors"])[14] . serialize($_POST["colors"])[15] . serialize($_POST["colors"])[19] . serialize($_POST["colors"])[20];
+    // $c2 = serialize($_POST["colors"])[26] . serialize($_POST["colors"])[27] . serialize($_POST["colors"])[31] . serialize($_POST["colors"])[32] . serialize($_POST["colors"])[36] . serialize($_POST["colors"])[37];
+    // $c3 = serialize($_POST["colors"])[43] . serialize($_POST["colors"])[44] . serialize($_POST["colors"])[48] . serialize($_POST["colors"])[49] . serialize($_POST["colors"])[53] . serialize($_POST["colors"])[54];
+    // $c4 = serialize($_POST["colors"])[60] . serialize($_POST["colors"])[61] . serialize($_POST["colors"])[65] . serialize($_POST["colors"])[66] . serialize($_POST["colors"])[70] . serialize($_POST["colors"])[71];
+    // $c5 = serialize($_POST["colors"])[77] . serialize($_POST["colors"])[78] . serialize($_POST["colors"])[82] . serialize($_POST["colors"])[83] . serialize($_POST["colors"])[87] . serialize($_POST["colors"])[88];
+    $palette = $_POST["colors"];
+    $query = "INSERT INTO db VALUES('', '$name', '$comment', '$palette', '$date')";
+    mysqli_query($conn, $query);
 }
 ?>
 
@@ -42,22 +45,22 @@ if(isset($_POST["submit"])){
         <div class="color-picker3"> </div>
         <div class="color-picker4"> </div>
         <div class="color-picker5"> </div>
-        <div id="panel1" class="panel" style="background-color: deepskyblue;"></div>
-        <div id="panel2" class="panel" style="background-color: blue;"></div>
-        <div id="panel3" class="panel" style="background-color: brown;"></div>
-        <div id="panel4" class="panel" style="background-color: crimson;"></div>
-        <div id="panel5" class="panel" style="background-color: coral;"></div>
+        <div id="panel1" class="panel" style="background-color: #F44336"></div>
+        <div id="panel2" class="panel" style="background-color: #E91E63F2"></div>
+        <div id="panel3" class="panel" style="background-color: #03A9F4B3"></div>
+        <div id="panel4" class="panel" style="background-color: #FFEB3BF2"></div>
+        <div id="panel5" class="panel" style="background-color: #FFC107"></div>
     </div>
 
-    <form action = ""  method = "post" class="py-6 max-w-sm mx-auto">
+    <form action = ""  method = "post" class="py-6 max-w-xs mx-auto">
         <input type="text" name="name" placeholder="Your name">
-        <textarea name="comment" placeholder="Your comment"></textarea>
+        <textarea name="comment" placeholder="Your comment"></textarea> <br>
         <button id="btn" name="submit" type="submit" class="submit text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2 px-4 mt-3 rounded">Post</button>
         <input type="hidden" id="colors" name="colors">
     </form>
 
     <?php
-    $datas = mysqli_query($conn, "SELECT * FROM tb_data"); // only select comment and not select reply
+    $datas = mysqli_query($conn, "SELECT * FROM db");
     foreach($datas as $data) {
         require 'comment.php';
     }
@@ -65,8 +68,7 @@ if(isset($_POST["submit"])){
 
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-        var colors = ["#FFFFFF", "000000", "#FFFFFF", "000000", "#FFFFFF", "000000"];
-        document.getElementById('colors').value = colors; 
+        var colors = ["a", "a","a","a","a"];//["#F44336", "#E91E63F2", "#03A9F4B3", "#FFEB3BF2", "#FFC107"];
 
         var panel1 = document.getElementById('panel1')    
         const pickr1 = Pickr.create({
@@ -92,12 +94,10 @@ if(isset($_POST["submit"])){
 
             components: {
 
-                // Main components
                 preview: true,
                 opacity: true,
                 hue: true,
 
-                // Input / output Options
                 interaction: {
                     hex: true,
                     rgba: true,
@@ -112,10 +112,11 @@ if(isset($_POST["submit"])){
         pickr1.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[0] = color.toHEXA()
+            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
         }).on('change', (color, source, instance) => {
             this.panel1.style.backgroundColor = color.toRGBA()
         });
-        
+ 
         //
 
         let panel2 = document.getElementById('panel2')
@@ -142,12 +143,10 @@ if(isset($_POST["submit"])){
 
             components: {
 
-                // Main components
                 preview: true,
                 opacity: true,
                 hue: true,
 
-                // Input / output Options
                 interaction: {
                     hex: true,
                     rgba: true,
@@ -162,6 +161,8 @@ if(isset($_POST["submit"])){
         pickr2.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[1] = color.toHEXA()
+            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
+            console.log(JSON.stringify(colors))
         }).on('change', (color, source, instance) => {
             this.panel2.style.backgroundColor = color.toRGBA()
         });
@@ -192,12 +193,10 @@ if(isset($_POST["submit"])){
 
             components: {
 
-                // Main components
                 preview: true,
                 opacity: true,
                 hue: true,
 
-                // Input / output Options
                 interaction: {
                     hex: true,
                     rgba: true,
@@ -212,6 +211,7 @@ if(isset($_POST["submit"])){
         pickr3.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[2] = color.toHEXA()
+            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
         }).on('change', (color, source, instance) => {
             this.panel3.style.backgroundColor = color.toRGBA()
         });      
@@ -242,12 +242,10 @@ if(isset($_POST["submit"])){
 
             components: {
 
-                // Main components
                 preview: true,
                 opacity: true,
                 hue: true,
 
-                // Input / output Options
                 interaction: {
                     hex: true,
                     rgba: true,
@@ -262,6 +260,7 @@ if(isset($_POST["submit"])){
         pickr4.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[3] = color.toHEXA()
+            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
         }).on('change', (color, source, instance) => {
             this.panel4.style.backgroundColor = color.toRGBA()
         });
@@ -292,12 +291,10 @@ if(isset($_POST["submit"])){
 
             components: {
 
-                // Main components
                 preview: true,
                 opacity: true,
                 hue: true,
 
-                // Input / output Options
                 interaction: {
                     hex: true,
                     rgba: true,
@@ -312,12 +309,11 @@ if(isset($_POST["submit"])){
         pickr5.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[4] = color.toHEXA()
+            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
         }).on('change', (color, source, instance) => {
             this.panel5.style.backgroundColor = color.toRGBA()
         });
-
     </script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 </body>
