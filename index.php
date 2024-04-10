@@ -50,7 +50,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         <input type="text" name="name" placeholder="Your name">
         <textarea name="comment" placeholder="Your comment"></textarea> <br>
         <button id="btn" name="submit" type="submit" class="submit text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2 px-4 mt-3 rounded">Post</button>
-        <input type="hidden" id="colors" name="colors">
+        <input type="hidden" id="colors" name="colors" value="#F44336, #E91E63F2, #03A9F4B3, #FFEB3BF2, #FFC107">
     </form>
 
     <?php
