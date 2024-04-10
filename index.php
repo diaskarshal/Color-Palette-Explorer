@@ -5,11 +5,6 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
     $name = $_POST["name"];
     $comment = $_POST["comment"];
     $date = date('F d, h:i');
-    // $c1 = serialize($_POST["colors"])[9] . serialize($_POST["colors"])[10] . serialize($_POST["colors"])[14] . serialize($_POST["colors"])[15] . serialize($_POST["colors"])[19] . serialize($_POST["colors"])[20];
-    // $c2 = serialize($_POST["colors"])[26] . serialize($_POST["colors"])[27] . serialize($_POST["colors"])[31] . serialize($_POST["colors"])[32] . serialize($_POST["colors"])[36] . serialize($_POST["colors"])[37];
-    // $c3 = serialize($_POST["colors"])[43] . serialize($_POST["colors"])[44] . serialize($_POST["colors"])[48] . serialize($_POST["colors"])[49] . serialize($_POST["colors"])[53] . serialize($_POST["colors"])[54];
-    // $c4 = serialize($_POST["colors"])[60] . serialize($_POST["colors"])[61] . serialize($_POST["colors"])[65] . serialize($_POST["colors"])[66] . serialize($_POST["colors"])[70] . serialize($_POST["colors"])[71];
-    // $c5 = serialize($_POST["colors"])[77] . serialize($_POST["colors"])[78] . serialize($_POST["colors"])[82] . serialize($_POST["colors"])[83] . serialize($_POST["colors"])[87] . serialize($_POST["colors"])[88];
     $palette = $_POST["colors"];
     $query = "INSERT INTO db VALUES('', '$name', '$comment', '$palette', '$date')";
     mysqli_query($conn, $query);
@@ -25,7 +20,6 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
     <link rel="stylesheet" href="style.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     
@@ -34,7 +28,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         
             <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Color Palette Explorer</h2>
         
-            <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">This is a project aimed to assist in exploring color palette. (<a href="https://www.github.com" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Github</a>) 
+            <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">This is a project aimed to assist in exploring color palette. (<a href="https://github.com/dkarshal/color_palette_explorer" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Github</a>) 
                 <br>Click these buttons below to choose the background color.</p>
         </div>
     </div>
@@ -68,7 +62,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
 
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-        var colors = ["a", "a","a","a","a"];//["#F44336", "#E91E63F2", "#03A9F4B3", "#FFEB3BF2", "#FFC107"];
+        var colors = ["#F44336", "#E91E63F2", "#03A9F4B3", "#FFEB3BF2", "#FFC107"];
 
         var panel1 = document.getElementById('panel1')    
         const pickr1 = Pickr.create({
@@ -112,7 +106,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         pickr1.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[0] = color.toHEXA()
-            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
+            document.getElementById('colors').value = colors
         }).on('change', (color, source, instance) => {
             this.panel1.style.backgroundColor = color.toRGBA()
         });
@@ -161,7 +155,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         pickr2.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[1] = color.toHEXA()
-            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
+            document.getElementById('colors').value = colors
             console.log(JSON.stringify(colors))
         }).on('change', (color, source, instance) => {
             this.panel2.style.backgroundColor = color.toRGBA()
@@ -211,7 +205,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         pickr3.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[2] = color.toHEXA()
-            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
+            document.getElementById('colors').value = colors
         }).on('change', (color, source, instance) => {
             this.panel3.style.backgroundColor = color.toRGBA()
         });      
@@ -260,7 +254,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         pickr4.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[3] = color.toHEXA()
-            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
+            document.getElementById('colors').value = colors
         }).on('change', (color, source, instance) => {
             this.panel4.style.backgroundColor = color.toRGBA()
         });
@@ -309,7 +303,7 @@ if(isset($_POST["submit"]) & isset($_POST["name"]) & isset($_POST["comment"])){
         pickr5.on('init', instance => {
         }).on('save', (color, instance) => {
             colors[4] = color.toHEXA()
-            document.getElementById('colors').value = colors// = JSON.stringify(colors); 
+            document.getElementById('colors').value = colors
         }).on('change', (color, source, instance) => {
             this.panel5.style.backgroundColor = color.toRGBA()
         });
