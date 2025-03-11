@@ -8,9 +8,9 @@
 
 ## Tech used:
 
-PHP & XAMPP
-MariaDB
-Color palette: [Pickr](https://github.com/simonwep/pickr/tree/master)
+PHP & XAMPP  
+MariaDB  
+Color palette: [Pickr](https://github.com/simonwep/pickr/tree/master)  
 Frontend: Tailwind ([Flowbite](https://flowbite.com/))
 
 ### Installation
@@ -22,10 +22,10 @@ cd color-palette-explorer
 
 ```
 
-Install XAMPP
-Move project files to htdocs
-Import database
-Configure database connection
-Run the Project - http://localhost/your-project-folder
+-Install XAMPP  
+-Move project files to htdocs  
+-Import database  
+-Configure database connection  
+-Run the Project - http://localhost/your-project-folder
 
 :)
